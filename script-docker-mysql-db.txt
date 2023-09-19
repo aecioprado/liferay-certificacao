@@ -1,0 +1,6 @@
+docker run -d -p 3306:3306 --name liferaydb \
+-e MYSQL_ROOT_PASSWORD=root \
+-e MYSQL_DATABASE=lportal \
+-e MYSQL_CHARSET=utf8mb4 \
+-e MYSQL_COLLATION=utf8mb4_unicode_ci \
+mysql:8.0
