@@ -1,0 +1,18 @@
+# criação do módulo
+blade create -t mvc-portlet -v 7.4 -p com.liferay.treinamento.boletim.web -c Boletim boletim-web
+
+# dependências
+// Clay taglib.
+compileOnly group: 'com.liferay', name: 'com.liferay.frontend.taglib.clay'
+
+// Necessário para Management Toolbar.
+compileOnly group: 'com.liferay', name: 'com.liferay.petra.function'
+compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib"
+compileOnly group: "javax.portlet", name: "portlet-api"
+compileOnly group: "javax.servlet", name: "javax.servlet-api"
+compileOnly group: "jstl", name: "jstl"
+compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
+
+// Boletim service.
+compileOnly project(":modules:boletim:boletim-api")
