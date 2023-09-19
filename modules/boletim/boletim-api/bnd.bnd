@@ -1,0 +1,10 @@
+Bundle-Name: boletim-api
+Bundle-SymbolicName: boletim.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	boletim.exception,\
+	boletim.model,\
+	boletim.service,\
+	boletim.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../boletim-service/service.xml

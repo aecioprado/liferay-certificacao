@@ -1,0 +1,11 @@
+dependencies {
+	compileOnly project(":modules:boletim:boletim-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../boletim-api/src/main/java"
+}
+
+group = "boletim"
