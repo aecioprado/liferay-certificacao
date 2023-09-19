@@ -1,7 +1,6 @@
 dependencies {
-	compileOnly project(":modules:boletim:boletim-api")
-
 	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly project(":modules:boletim:boletim-api")
 }
 
 buildService {
