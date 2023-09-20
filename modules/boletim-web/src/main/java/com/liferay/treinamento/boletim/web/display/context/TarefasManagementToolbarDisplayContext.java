@@ -24,36 +24,46 @@ import java.util.List;
 
 import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
-	* Assigments management toolbar display context.
-	*
-	* This class passes contextual information to the user interface
-	* for the Clay management toolbar.
-	*
-	* @author liferay
-	*/
-public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolbarDisplayContext {
+ * Assigments management toolbar display context.
+ *
+ * This class passes contextual information to the user interface
+ * for the Clay management toolbar.
+ *
+ * @author liferay
+ */
+public class TarefasManagementToolbarDisplayContext
+	extends BaseManagementToolbarDisplayContext {
 
 	public TarefasManagementToolbarDisplayContext(
 		LiferayPortletRequest liferayPortletRequest,
 		LiferayPortletResponse liferayPortletResponse,
 		HttpServletRequest httpServletRequest) {
 
-		super(liferayPortletRequest, liferayPortletResponse, httpServletRequest);
+		super(
+			liferayPortletRequest, liferayPortletResponse, httpServletRequest);
 
-		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(liferayPortletRequest);
+		_portalPreferences = PortletPreferencesFactoryUtil.getPortalPreferences(
+			liferayPortletRequest);
 
-		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+	}
+
+	@Override
+	public String getClearResultsURL() {
+		return getSearchActionURL();
 	}
 
 	/**
-		* Returns the creation menu for the toolbar
-		* (plus sign on the management toolbar).
-		*
-		* @return creation menu
-		*/
+	 * Returns the creation menu for the toolbar
+	 * (plus sign on the management toolbar).
+	 *
+	 * @return creation menu
+	 */
 	@Override
 	public CreationMenu getCreationMenu() {
 
@@ -71,23 +81,17 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 							LanguageUtil.get(request, "add-assignment"));
 					});
 			}
-		};		
-	}
-	
-	@Override
-	public String getClearResultsURL() {
-		return getSearchActionURL();
+		};
 	}
 
 	/**
-		* Returns the assignment list display style. 
-		* 
-		* Current selection is stored in portal preferences.
-		* 
-		* @return current display style
-		*/
+	 * Returns the assignment list display style.
+	 *
+	 * Current selection is stored in portal preferences.
+	 *
+	 * @return current display style
+	 */
 	public String getDisplayStyle() {
-
 		String displayStyle = ParamUtil.getString(request, "displayStyle");
 
 		if (Validator.isNull(displayStyle)) {
@@ -97,7 +101,7 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 		}
 		else {
 			_portalPreferences.setValue(
-					BoletimPortletKeys.BOLETIM, "assignments-display-style",
+				BoletimPortletKeys.BOLETIM, "assignments-display-style",
 				displayStyle);
 
 			request.setAttribute(
@@ -108,38 +112,35 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 	}
 
 	/**
-		* Returns the sort order column.
-		* 
-		* @return sort column
-		*/
+	 * Returns the sort order column.
+	 *
+	 * @return sort column
+	 */
 	public String getOrderByCol() {
-
 		return ParamUtil.getString(request, "orderByCol", "title");
 	}
 
 	/**
-		* Returns the sort type (ascending / descending).
-		* 
-		* @return sort type
-		*/
+	 * Returns the sort type (ascending / descending).
+	 *
+	 * @return sort type
+	 */
 	public String getOrderByType() {
-
 		return ParamUtil.getString(request, "orderByType", "asc");
 	}
-	
+
 	/**
-		* Returns the action URL for the search.
-		*
-		* @return search action URL
-		*/
+	 * Returns the action URL for the search.
+	 *
+	 * @return search action URL
+	 */
 	@Override
 	public String getSearchActionURL() {
-		
 		PortletURL searchURL = liferayPortletResponse.createRenderURL();
 
 		searchURL.setProperty(
 			"mvcRenderCommandName", MVCCommandNames.VIEW_TAREFAS);
-		
+
 		String navigation = ParamUtil.getString(
 			request, "navigation", "entries");
 		searchURL.setParameter("navigation", navigation);
@@ -149,36 +150,33 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 		return searchURL.toString();
 	}
 
-
 	/**
-		* Returns the view type options (card, list, table).
-		*
-		* @return list of view types
-		*/
+	 * Returns the view type options (card, list, table).
+	 *
+	 * @return list of view types
+	 */
 	@Override
 	public List<ViewTypeItem> getViewTypeItems() {
 		PortletURL portletURL = liferayPortletResponse.createRenderURL();
 
 		portletURL.setParameter(
-				"mvcRenderCommandName", MVCCommandNames.VIEW_TAREFAS);
+			"mvcRenderCommandName", MVCCommandNames.VIEW_TAREFAS);
 
-		int delta =
-				ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		int delta = ParamUtil.getInteger(
+			request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		if (delta > 0) {
 			portletURL.setParameter("delta", String.valueOf(delta));
 		}
 
-		String orderByCol =
-			ParamUtil.getString(request, "orderByCol", "title");
-		String orderByType =
-			ParamUtil.getString(request, "orderByType", "asc");
+		String orderByCol = ParamUtil.getString(request, "orderByCol", "title");
+		String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
 		portletURL.setParameter("orderByCol", orderByCol);
 		portletURL.setParameter("orderByType", orderByType);
 
-		int cur =
-			ParamUtil.getInteger(request, SearchContainer.DEFAULT_CUR_PARAM);
+		int cur = ParamUtil.getInteger(
+			request, SearchContainer.DEFAULT_CUR_PARAM);
 
 		if (cur > 0) {
 			portletURL.setParameter("cur", String.valueOf(cur));
@@ -194,12 +192,12 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 			}
 		};
 	}
-	
+
 	/**
-		* Return the option items for the sort column menu.
-		*
-		* @return options list for the sort column menu
-		*/
+	 * Return the option items for the sort column menu.
+	 *
+	 * @return options list for the sort column menu
+	 */
 	@Override
 	protected List<DropdownItem> getOrderByDropdownItems() {
 		return new DropdownItemList() {
@@ -226,14 +224,14 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 			}
 		};
 	}
-	
+
 	/**
-		* Returns the current sorting URL.
-		*
-		* @return current sorting portlet URL
-		*
-		* @throws PortletException
-		*/
+	 * Returns the current sorting URL.
+	 *
+	 * @return current sorting portlet URL
+	 *
+	 * @throws PortletException
+	 */
 	private PortletURL _getCurrentSortingURL() throws PortletException {
 		PortletURL sortingURL = PortletURLUtil.clone(
 			currentURLObj, liferayPortletResponse);
@@ -253,7 +251,8 @@ public class TarefasManagementToolbarDisplayContext	extends BaseManagementToolba
 
 		return sortingURL;
 	}
-	
-	private final PortalPreferences _portalPreferences;	
+
+	private final PortalPreferences _portalPreferences;
 	private final ThemeDisplay _themeDisplay;
+
 }

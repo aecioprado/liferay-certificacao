@@ -1,8 +1,7 @@
 package com.liferay.treinamento.boletim.web.portlet;
 
-import com.liferay.treinamento.boletim.web.constants.BoletimPortletKeys;
-
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.treinamento.boletim.web.constants.BoletimPortletKeys;
 
 import javax.portlet.Portlet;
 

@@ -31,120 +31,118 @@ import org.osgi.service.component.annotations.Reference;
  * @author liferay
  */
 @Component(
-        immediate = true,
-        property = {
-                "javax.portlet.name=" + BoletimPortletKeys.BOLETIM,
-                "mvc.command.name=/",
-                "mvc.command.name=" + MVCCommandNames.VIEW_TAREFAS
-        },
-        service = MVCRenderCommand.class
+	immediate = true,
+	property = {
+		"javax.portlet.name=" + BoletimPortletKeys.BOLETIM,
+		"mvc.command.name=/", "mvc.command.name=" + MVCCommandNames.VIEW_TAREFAS
+	},
+	service = MVCRenderCommand.class
 )
 public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 
-    @Override
-    public String render(
-            RenderRequest renderRequest, RenderResponse renderResponse)
-            throws PortletException {
+	@Override
+	public String render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+		throws PortletException {
 
-        // Add assignment list related attributes.
+		// Add assignment list related attributes.
 
-        addTarefaListAttributes(renderRequest);
+		addTarefaListAttributes(renderRequest);
 
-        // Add Clay management toolbar related attributes.
+		// Add Clay management toolbar related attributes.
 
-        addManagementToolbarAttributes(renderRequest, renderResponse);
+		addManagementToolbarAttributes(renderRequest, renderResponse);
 
-        return "/view.jsp";
-    }
+		return "/view.jsp";
+	}
 
-    /**
-     * Adds assigment list related attributes to the request.
-     *
-     * @param renderRequest
-     */
-    private void addTarefaListAttributes(RenderRequest renderRequest) {
+	@Reference
+	protected TarefaService _tarefaService;
 
-        ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+	/**
+	 * Adds Clay management toolbar context object to the request.
+	 *
+	 * @param renderRequest
+	 * @param renderResponse
+	 */
+	private void addManagementToolbarAttributes(
+		RenderRequest renderRequest, RenderResponse renderResponse) {
 
-        // Resolve start and end for the search.
+		LiferayPortletRequest liferayPortletRequest =
+			_portal.getLiferayPortletRequest(renderRequest);
 
-        int currentPage = ParamUtil.getInteger(
-                renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
-                SearchContainer.DEFAULT_CUR);
+		LiferayPortletResponse liferayPortletResponse =
+			_portal.getLiferayPortletResponse(renderResponse);
 
-        int delta = ParamUtil.getInteger(
-                renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-                SearchContainer.DEFAULT_DELTA);
+		TarefasManagementToolbarDisplayContext
+			tarefasManagementToolbarDisplayContext =
+				new TarefasManagementToolbarDisplayContext(
+					liferayPortletRequest, liferayPortletResponse,
+					_portal.getHttpServletRequest(renderRequest));
 
-        int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
-        int end = start + delta;
+		renderRequest.setAttribute(
+			"assignmentsManagementToolbarDisplayContext",
+			tarefasManagementToolbarDisplayContext);
+	}
 
-        // Get sorting options.
-        // Notice that this doesn't really sort on title because the field is
-        // stored in XML. In real world this search would be integrated to the
-        // search engine  to get localized sort options.
+	/**
+	 * Adds assigment list related attributes to the request.
+	 *
+	 * @param renderRequest
+	 */
+	private void addTarefaListAttributes(RenderRequest renderRequest) {
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
-        String orderByCol =
-                ParamUtil.getString(renderRequest, "orderByCol", "title");
-        String orderByType =
-                ParamUtil.getString(renderRequest, "orderByType", "asc");
+		// Resolve start and end for the search.
 
-        // Create comparator
+		int currentPage = ParamUtil.getInteger(
+			renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
+			SearchContainer.DEFAULT_CUR);
 
-        OrderByComparator<Tarefa> comparator =
-                OrderByComparatorFactoryUtil.create(
-                        "Tarefa", orderByCol, !("asc").equals(orderByType));
+		int delta = ParamUtil.getInteger(
+			renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
+			SearchContainer.DEFAULT_DELTA);
 
-        // Get keywords.
-        // Notice that cleaning keywords is not implemented.
+		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
+		int end = start + delta;
 
-        String keywords = ParamUtil.getString(renderRequest, "keywords");
+		// Get sorting options.
+		// Notice that this doesn't really sort on title because the field is
+		// stored in XML. In real world this search would be integrated to the
+		// search engine  to get localized sort options.
 
-        // Call the service to get the list of assignments.
+		String orderByCol = ParamUtil.getString(
+			renderRequest, "orderByCol", "title");
+		String orderByType = ParamUtil.getString(
+			renderRequest, "orderByType", "asc");
 
-        List<Tarefa> assignments =
-                _tarefaService.getTarefasByKeywords(
-                        themeDisplay.getScopeGroupId(), keywords, start, end,
-                        comparator);
+		// Create comparator
 
-        // Set request attributes.
+		OrderByComparator<Tarefa> comparator =
+			OrderByComparatorFactoryUtil.create(
+				"Tarefa", orderByCol, !"asc".equals(orderByType));
 
-        renderRequest.setAttribute("assignments", assignments);
-        renderRequest.setAttribute(
-                "assignmentCount", _assignmentService.getAssignmentsCountByKeywords(
-                        themeDisplay.getScopeGroupId(), keywords));
+		// Get keywords.
+		// Notice that cleaning keywords is not implemented.
 
-    }
+		String keywords = ParamUtil.getString(renderRequest, "keywords");
 
-    /**
-     * Adds Clay management toolbar context object to the request.
-     *
-     * @param renderRequest
-     * @param renderResponse
-     */
-    private void addManagementToolbarAttributes(
-            RenderRequest renderRequest, RenderResponse renderResponse) {
+		// Call the service to get the list of assignments.
 
-        LiferayPortletRequest liferayPortletRequest =
-                _portal.getLiferayPortletRequest(renderRequest);
+		List<Tarefa> tarefas = _tarefaService.getTarefasByKeywords(
+			themeDisplay.getScopeGroupId(), keywords, start, end, comparator);
 
-        LiferayPortletResponse liferayPortletResponse =
-                _portal.getLiferayPortletResponse(renderResponse);
+		// Set request attributes.
 
-        AssignmentsManagementToolbarDisplayContext assignmentsManagementToolbarDisplayContext =
-                new AssignmentsManagementToolbarDisplayContext(
-                        liferayPortletRequest, liferayPortletResponse,
-                        _portal.getHttpServletRequest(renderRequest));
+		renderRequest.setAttribute("tarefas", tarefas);
+		renderRequest.setAttribute(
+			"tarefasCount",
+			_tarefaService.getTarefasCountByKeywords(
+				themeDisplay.getScopeGroupId(), keywords));
+	}
 
-        renderRequest.setAttribute(
-                "assignmentsManagementToolbarDisplayContext",
-                assignmentsManagementToolbarDisplayContext);
+	@Reference
+	private Portal _portal;
 
-    }
-
-    @Reference
-    protected TarefaService _tarefaService;
-
-    @Reference
-    private Portal _portal;
 }
