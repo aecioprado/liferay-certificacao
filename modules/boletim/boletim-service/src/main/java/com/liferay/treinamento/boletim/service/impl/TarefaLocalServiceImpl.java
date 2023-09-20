@@ -156,10 +156,10 @@ public class TarefaLocalServiceImpl extends TarefaLocalServiceBaseImpl {
 					RestrictionsFactoryUtil.disjunction();
 
 			disjunctionQuery.add(
-					RestrictionsFactoryUtil.like("title", "%" + keywords + "%"));
+					RestrictionsFactoryUtil.like("titulo", "%" + keywords + "%"));
 			disjunctionQuery.add(
 					RestrictionsFactoryUtil.like(
-							"description", "%" + keywords + "%"));
+							"descricao", "%" + keywords + "%"));
 			dynamicQuery.add(disjunctionQuery);
 		}
 

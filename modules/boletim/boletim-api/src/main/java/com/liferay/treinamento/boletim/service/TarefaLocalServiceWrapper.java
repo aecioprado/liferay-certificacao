@@ -34,6 +34,17 @@ public class TarefaLocalServiceWrapper
 		_tarefaLocalService = tarefaLocalService;
 	}
 
+	@Override
+	public com.liferay.treinamento.boletim.model.Tarefa addTarefa(
+			long groupId, String titulo, String descricao,
+			java.util.Date dataFinal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _tarefaLocalService.addTarefa(
+			groupId, titulo, descricao, dataFinal, serviceContext);
+	}
+
 	/**
 	 * Adds the tarefa to the database. Also notifies the appropriate model listeners.
 	 *
@@ -337,6 +348,32 @@ public class TarefaLocalServiceWrapper
 		return _tarefaLocalService.getTarefas(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.treinamento.boletim.model.Tarefa>
+		getTarefasByGroupId(long groupId) {
+
+		return _tarefaLocalService.getTarefasByGroupId(groupId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.treinamento.boletim.model.Tarefa>
+		getTarefasByGroupId(long groupId, int start, int end) {
+
+		return _tarefaLocalService.getTarefasByGroupId(groupId, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.treinamento.boletim.model.Tarefa>
+		getTarefasByKeywords(
+			long groupId, String keywords, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.treinamento.boletim.model.Tarefa>
+					orderByComparator) {
+
+		return _tarefaLocalService.getTarefasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
 	/**
 	 * Returns all the tarefas matching the UUID and company.
 	 *
@@ -382,6 +419,34 @@ public class TarefaLocalServiceWrapper
 	@Override
 	public int getTarefasCount() {
 		return _tarefaLocalService.getTarefasCount();
+	}
+
+	@Override
+	public long getTarefasCountByKeywords(long groupId, String keywords) {
+		return _tarefaLocalService.getTarefasCountByKeywords(groupId, keywords);
+	}
+
+	@Override
+	public java.util.List<com.liferay.treinamento.boletim.model.Tarefa>
+		getTarefasyGroupId(
+			long groupId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.treinamento.boletim.model.Tarefa>
+					orderByComparator) {
+
+		return _tarefaLocalService.getTarefasyGroupId(
+			groupId, start, end, orderByComparator);
+	}
+
+	@Override
+	public com.liferay.treinamento.boletim.model.Tarefa updateTarefa(
+			long tarefaId, String titulo, String descricao,
+			java.util.Date dataFinal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _tarefaLocalService.updateTarefa(
+			tarefaId, titulo, descricao, dataFinal, serviceContext);
 	}
 
 	/**

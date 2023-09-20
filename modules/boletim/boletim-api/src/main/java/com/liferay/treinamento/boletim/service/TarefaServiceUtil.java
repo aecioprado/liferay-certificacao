@@ -14,6 +14,12 @@
 
 package com.liferay.treinamento.boletim.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.treinamento.boletim.model.Tarefa;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for Tarefa. This utility wraps
  * <code>com.liferay.treinamento.boletim.service.impl.TarefaServiceImpl</code> and is an
@@ -33,14 +39,59 @@ public class TarefaServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.treinamento.boletim.service.impl.TarefaServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Tarefa addTarefa(
+			long groupId, String titulo, String descricao,
+			java.util.Date dataFinal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addTarefa(
+			groupId, titulo, descricao, dataFinal, serviceContext);
+	}
+
+	public static Tarefa deleteTarefa(long tarefaId) throws PortalException {
+		return getService().deleteTarefa(tarefaId);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static Tarefa getTarefa(long tarefaId) throws PortalException {
+		return getService().getTarefa(tarefaId);
+	}
+
+	public static List<Tarefa> getTarefasByGroupId(long groupId) {
+		return getService().getTarefasByGroupId(groupId);
+	}
+
+	public static List<Tarefa> getTarefasByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Tarefa> orderByComparator) {
+
+		return getService().getTarefasByKeywords(
+			groupId, keywords, start, end, orderByComparator);
+	}
+
+	public static long getTarefasCountByKeywords(
+		long groupId, String keywords) {
+
+		return getService().getTarefasCountByKeywords(groupId, keywords);
+	}
+
+	public static Tarefa updateTarefa(
+			long tarefaId, String titulo, String descricao,
+			java.util.Date dataFinal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateTarefa(
+			tarefaId, titulo, descricao, dataFinal, serviceContext);
 	}
 
 	public static TarefaService getService() {

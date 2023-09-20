@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -36,6 +37,7 @@ import com.liferay.treinamento.boletim.model.Tarefa;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
@@ -63,6 +65,10 @@ public interface TarefaLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.treinamento.boletim.service.impl.TarefaLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the tarefa local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TarefaLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public Tarefa addTarefa(
+			long groupId, String titulo, String descricao, Date dataFinal,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the tarefa to the database. Also notifies the appropriate model listeners.
@@ -272,6 +278,17 @@ public interface TarefaLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Tarefa> getTarefas(int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Tarefa> getTarefasByGroupId(long groupId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Tarefa> getTarefasByGroupId(long groupId, int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Tarefa> getTarefasByKeywords(
+		long groupId, String keywords, int start, int end,
+		OrderByComparator<Tarefa> orderByComparator);
+
 	/**
 	 * Returns all the tarefas matching the UUID and company.
 	 *
@@ -305,6 +322,19 @@ public interface TarefaLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTarefasCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getTarefasCountByKeywords(long groupId, String keywords);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Tarefa> getTarefasyGroupId(
+		long groupId, int start, int end,
+		OrderByComparator<Tarefa> orderByComparator);
+
+	public Tarefa updateTarefa(
+			long tarefaId, String titulo, String descricao, Date dataFinal,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the tarefa in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -15,9 +15,16 @@
 package com.liferay.treinamento.boletim.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.treinamento.boletim.model.Tarefa;
 import com.liferay.treinamento.boletim.service.base.TarefaServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
@@ -30,4 +37,41 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class TarefaServiceImpl extends TarefaServiceBaseImpl {
+
+	public Tarefa addTarefa(
+			long groupId, String titulo, String descricao,
+			Date dataFinal, ServiceContext serviceContext)
+			throws PortalException {
+		return tarefaLocalService.addTarefa(
+				groupId, titulo, descricao, dataFinal, serviceContext);
+	}
+	public Tarefa deleteTarefa(long tarefaId)
+			throws PortalException {
+		Tarefa Tarefa = tarefaLocalService.getTarefa(tarefaId);
+		return tarefaLocalService.deleteTarefa(Tarefa);
+	}
+	public Tarefa getTarefa(long tarefaId)
+			throws PortalException {
+		return tarefaLocalService.getTarefa(tarefaId);
+	}
+	public List<Tarefa> getTarefasByGroupId(long groupId) {
+		return tarefaPersistence.findByGroupId(groupId);
+	}
+	public List<Tarefa> getTarefasByKeywords(
+			long groupId, String keywords, int start, int end,
+			OrderByComparator<Tarefa> orderByComparator) {
+		return tarefaLocalService.getTarefasByKeywords(
+				groupId, keywords, start, end, orderByComparator);
+	}
+	public long getTarefasCountByKeywords(long groupId, String keywords) {
+		return tarefaLocalService.getTarefasCountByKeywords(
+				groupId, keywords);
+	}
+	public Tarefa updateTarefa(
+			long tarefaId, String titulo, String descricao,
+			Date dataFinal, ServiceContext serviceContext)
+			throws PortalException {
+		return tarefaLocalService.updateTarefa(
+				tarefaId, titulo, descricao, dataFinal, serviceContext);
+	}
 }
