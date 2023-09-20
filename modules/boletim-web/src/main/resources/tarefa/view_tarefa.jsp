@@ -1,7 +1,7 @@
 <%@ include file="../init.jsp" %>
 
 <div class="container-fluid-1280">
-	<h1>${tarefa.title}</h1>
+	<h1>${tarefa.titulo}</h1>
 
 	<h2><liferay-ui:message key="tarefa-information" /></h2>
 
@@ -14,10 +14,10 @@
 			<dd>${tarefa.userName}</dd>
 
 			<dt><liferay-ui:message key="tarefa-duedate" /></dt>
-			<dd>${dueDate}</dd>
+			<dd>${dataFinal}</dd>
 
 			<dt><liferay-ui:message key="description" /></dt>
-			<dd>${tarefa.description}</dd>
+			<dd>${tarefa.descricao}</dd>
 		</dl>
 	</div>
 </div>

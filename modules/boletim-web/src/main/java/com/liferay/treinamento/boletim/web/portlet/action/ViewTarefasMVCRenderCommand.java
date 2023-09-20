@@ -56,8 +56,6 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 		return "/view.jsp";
 	}
 
-	@Reference
-	protected TarefaService _tarefaService;
 
 	/**
 	 * Adds Clay management toolbar context object to the request.
@@ -81,7 +79,7 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 					_portal.getHttpServletRequest(renderRequest));
 
 		renderRequest.setAttribute(
-			"assignmentsManagementToolbarDisplayContext",
+			"tarefasManagementToolbarDisplayContext",
 			tarefasManagementToolbarDisplayContext);
 	}
 
@@ -91,8 +89,7 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 	 * @param renderRequest
 	 */
 	private void addTarefaListAttributes(RenderRequest renderRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
 		// Resolve start and end for the search.
 
@@ -144,5 +141,8 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	protected TarefaService _tarefaService;
 
 }
