@@ -1,4 +1,4 @@
-<%-- Generate assignment view  URL. --%>
+<%-- Generate tarefa view  URL. --%>
 
 <portlet:renderURL var="viewAssignmentURL">
 	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_ASSIGNMENT %>" />
@@ -44,7 +44,7 @@
 		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-jsp
-			path="/assignment/entry_actions.jsp" />
+			path="/tarefa/entry_actions.jsp" />
 	</c:when>
 
 	<%-- Card view  --%>
@@ -61,7 +61,7 @@
 			<%-- Vertical card. --%>
 
 			<liferay-frontend:icon-vertical-card
-				actionJsp="/assignment/entry_actions.jsp"
+				actionJsp="/tarefa/entry_actions.jsp"
 				actionJspServletContext="<%= application %>"
 				icon="cards2" resultRow="${row}"
 				title="${entry.title}"
@@ -110,7 +110,7 @@
 
 		<liferay-ui:search-container-column-jsp
 			name="actions"
-			path="/assignment/entry_actions.jsp"
+			path="/tarefa/entry_actions.jsp"
 		/>
 	</c:otherwise>
 </c:choose>

@@ -1,6 +1,6 @@
 <%@ include file="../init.jsp"%>
 
-<c:set var="assignment" value="${SEARCH_CONTAINER_RESULT_ROW.object}" />
+<c:set var="tarefa" value="${SEARCH_CONTAINER_RESULT_ROW.object}" />
 
 <liferay-ui:icon-menu markupView="lexicon">
 
@@ -10,7 +10,7 @@
 		<portlet:param name="mvcRenderCommandName"
 			value="<%=MVCCommandNames.VIEW_ASSIGNMENT %>" />
 		<portlet:param name="redirect" value="${currentURL}" />
-		<portlet:param name="assignmentId" value="${assignment.assignmentId}" />
+		<portlet:param name="assignmentId" value="${tarefa.assignmentId}" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon message="view" url="${viewAssignmentURL}" />
@@ -21,7 +21,7 @@
 		<portlet:param name="mvcRenderCommandName"
 			value="<%=MVCCommandNames.EDIT_ASSIGNMENT %>" />
 		<portlet:param name="redirect" value="${currentURL}" />
-		<portlet:param name="assignmentId" value="${assignment.assignmentId}" />
+		<portlet:param name="assignmentId" value="${tarefa.assignmentId}" />
 	</portlet:renderURL>
 
 	<liferay-ui:icon message="edit" url="${editAssignmentURL}" />
@@ -30,7 +30,7 @@
 
 	<portlet:actionURL name="<%=MVCCommandNames.DELETE_ASSIGNMENT %>" var="deleteAssignmentURL">
 		<portlet:param name="redirect" value="${currentURL}" />
-		<portlet:param name="assignmentId" value="${assignment.assignmentId}" />
+		<portlet:param name="assignmentId" value="${tarefa.assignmentId}" />
 	</portlet:actionURL>
 
 	<liferay-ui:icon-delete url="${deleteAssignmentURL}" />

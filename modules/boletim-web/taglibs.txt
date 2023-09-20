@@ -21,8 +21,8 @@
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil"%>
 
-<%@ page import="com.liferay.training.boletim.model.Assignment"%>
-<%@ page import="com.liferay.training.gradebook.web.constants.MVCCommandNames"%>
+<%@ page import="com.liferay.training.boletim.model.tarefa"%>
+<%@ page import="com.liferay.training.boletim.web.constants.MVCCommandNames"%>
 
 <%@ page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 

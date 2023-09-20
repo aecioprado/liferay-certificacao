@@ -1,6 +1,6 @@
 package com.liferay.treinamento.boletim.web.constants;
 
-public class MVCCommandConstants {
+public class MVCCommandNames {
 
     // MVCCommands apontam para os controllers específicos
     public static final String ADD_TAREFA = "/boletim/tarefa/add";

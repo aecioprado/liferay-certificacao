@@ -20,7 +20,7 @@
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil"%>
 
 <%@ page import="com.liferay.training.boletim.model.Tarefa"%>
-<%@ page import="com.liferay.training.gradebook.web.constants.MVCCommandNames"%>
+<%@ page import="com.liferay.training.boletim.web.constants.MVCCommandConstants"%>
 
 <%@ page import="java.util.Date"%>
 <%@ page import="javax.portlet.WindowState"%>
