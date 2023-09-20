@@ -1,0 +1,79 @@
+# declaração das tag libs -> init.jsp
+
+========================
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+
+<%@ taglib prefix="aui" uri="http://liferay.com/tld/aui" %>
+<%@ taglib prefix="clay" uri="http://liferay.com/tld/clay" %>
+<%@ taglib prefix="liferay-item-selector" uri="http://liferay.com/tld/item-selector" %>
+<%@ taglib prefix="liferay-frontend" uri="http://liferay.com/tld/frontend" %>
+<%@ taglib prefix="liferay-portlet" uri="http://liferay.com/tld/portlet" %>
+<%@ taglib prefix="liferay-theme" uri="http://liferay.com/tld/theme" %>
+<%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
+
+<%@ page import="java.util.Date"%>
+<%@ page import="javax.portlet.WindowState"%>
+
+<%@ page import="com.liferay.portal.kernel.language.LanguageUtil"%>
+<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
+<%@ page import="com.liferay.portal.kernel.util.HtmlUtil"%>
+
+<%@ page import="com.liferay.training.boletim.model.Assignment"%>
+<%@ page import="com.liferay.training.gradebook.web.constants.MVCCommandNames"%>
+
+<%@ page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
+
+<liferay-frontend:defineObjects />
+
+<liferay-theme:defineObjects />
+
+<portlet:defineObjects />
+========================
+
+tags no arquivo JSP
+
+=========================
+<clay:management-toolbar
+		disabled="${assignmentCount eq 0}"
+		displayContext="${assignmentsManagementToolbarDisplayContext}"
+		itemsTotal="${assignmentCount}"
+		searchContainerId="assignmentEntries"
+		selectable="false"
+/>
+
+JavaServer Pages Tag Library (JSTL) Tag libraries -> namespace = "c"
+Referencias: https://www.baeldung.com/jstl
+==============================
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+=============================
+core
+formatting
+sql
+xml
+jstl functions
+
+
+Liferay Tag Lib
+=====================
+liferay-theme
+liferay-portlet: wrapper para standard portlet_2 library
+liferay-ui
+liferay-util
+liferay-security
+clay
+-- https://help.liferay.com/hc/en-us/articles/360017888252-Using-the-Clay-Taglib-in-Your-portlets
+chart
+map
+
+
+
+
+
+view.jsp -> renderiza a lista do modelo
