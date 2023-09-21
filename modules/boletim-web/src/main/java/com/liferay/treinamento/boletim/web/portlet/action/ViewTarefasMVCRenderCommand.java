@@ -34,7 +34,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + BoletimPortletKeys.BOLETIM,
-		"mvc.command.name=/", "mvc.command.name=" + MVCCommandNames.VIEW_TAREFAS
+		"mvc.command.name=" + MVCCommandNames.VIEW_TAREFAS
 	},
 	service = MVCRenderCommand.class
 )
