@@ -20,6 +20,7 @@
 
 <%@ page import="com.liferay.treinamento.boletim.model.Tarefa"%>
 <%@ page import="com.liferay.treinamento.boletim.web.constants.MVCCommandNames"%>
+<%@ page import="com.liferay.treinamento.boletim.web.display.context.TarefasManagementToolbarDisplayContext"%>
 
 <%@ page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 

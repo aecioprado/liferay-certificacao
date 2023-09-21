@@ -1,6 +1,7 @@
 package com.liferay.treinamento.boletim.web.display.context;
 
 import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.BaseManagementToolbarDisplayContext;
+import com.liferay.frontend.taglib.clay.servlet.taglib.display.context.SearchContainerManagementToolbarDisplayContext;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
@@ -78,7 +79,8 @@ public class TarefasManagementToolbarDisplayContext
 							"mvcRenderCommandName", MVCCommandNames.EDIT_TAREFA,
 							"redirect", currentURLObj.toString());
 						dropdownItem.setLabel(
-							LanguageUtil.get(request, "add-assignment"));
+							//LanguageUtil.get(request, "add-assignment")
+								"Criar Tarefa");
 					});
 			}
 		};

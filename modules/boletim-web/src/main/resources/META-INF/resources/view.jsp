@@ -6,19 +6,21 @@
 <liferay-ui:success key="assignmentUpdated" message="assignment-updated-successfully" />
 <liferay-ui:success key="assignmentDeleted" message="assignment-deleted-successfully" />
 
+<%
+TarefasManagementToolbarDisplayContext tarefasManagementToolbarDisplayContext = new TarefasManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request);
+%>
+
+
 <div class="container-fluid-1280">
 
-	<h1><liferay-ui:message key="tarefas-header" /></h1>
-
-	<%-- Clay management toolbar. --%>
-
+<div>
+<h1><liferay-ui:message key="Tarefas" /></h1>
 	<clay:management-toolbar
 		disabled="${tarefasCount eq 0}"
-		displayContext="${tarefasManagementToolbarDisplayContext}"
+		displayContext="<%= tarefasManagementToolbarDisplayContext %>"
 		itemsTotal="${tarefasCount}"
-		searchContainerId="tarefaEntries"
+		searchContainerId="tarefasEntries"
 		selectable="false"
 	/>
-
-
+</div>
 </div>
