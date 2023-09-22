@@ -13,7 +13,9 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.treinamento.boletim.exception.TarefaValidationException;
 import com.liferay.treinamento.boletim.model.Tarefa;
-import com.liferay.treinamento.boletim.service.TarefaService;
+import com.liferay.treinamento.boletim.service.TarefaLocalService;
+import com.liferay.treinamento.boletim.service.TarefaLocalServiceUtil;
+import com.liferay.treinamento.boletim.service.TarefaServiceUtil;
 import com.liferay.treinamento.boletim.web.constants.BoletimPortletKeys;
 import com.liferay.treinamento.boletim.web.constants.MVCCommandNames;
 
@@ -63,7 +65,7 @@ public class AddTarefaMVCActionCommand extends BaseMVCActionCommand {
 
             // Call the service to add a new assignment.
 
-            _tarefaService.addTarefa(
+            TarefaServiceUtil.addTarefa(
                     themeDisplay.getScopeGroupId(), titulo, descricao, dataFinal, serviceContext);
 
             // Set the success message.
@@ -99,7 +101,5 @@ public class AddTarefaMVCActionCommand extends BaseMVCActionCommand {
         }
     }
 
-    @Reference
-    protected TarefaService _tarefaService;
 
 }

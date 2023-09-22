@@ -78,15 +78,9 @@ public class TarefaLocalServiceImpl extends TarefaLocalServiceBaseImpl {
 
 		// Persiste no banco de dados
 
-		return super.addTarefa(tarefa);
+		return tarefaPersistence.update(tarefa);
 	}
 
-	@Override
-	public Tarefa addTarefa(Tarefa tarefa) {
-		throw new UnsupportedOperationException("Not supported.");
-	}
-
-	// Finders
 
 	public List<Tarefa> getTarefasByGroupId(long groupId) {
 		return tarefaPersistence.findByGroupId(groupId);
@@ -96,27 +90,42 @@ public class TarefaLocalServiceImpl extends TarefaLocalServiceBaseImpl {
 		return tarefaPersistence.findByGroupId(groupId, start, end);
 	}
 
-	public List<Tarefa> getTarefasByKeywords(
-			long groupId, String keywords, int start, int end,
-			OrderByComparator<Tarefa> orderByComparator) {
-
-		return tarefaLocalService.dynamicQuery(
-				getKeywordSearchDynamicQuery(groupId, keywords), start, end,
-				orderByComparator);
+	@Override
+	public List<Tarefa> getTarefasByKeywords(long groupId, String keywords, int start, int end, OrderByComparator<Tarefa> orderByComparator) {
+		return null;
 	}
 
+	@Override
 	public long getTarefasCountByKeywords(long groupId, String keywords) {
-		return tarefaLocalService.dynamicQueryCount(
-				getKeywordSearchDynamicQuery(groupId, keywords));
+		return 0;
 	}
 
-	public List<Tarefa> getTarefasyGroupId(
-			long groupId, int start, int end,
-			OrderByComparator<Tarefa> orderByComparator) {
-
-		return tarefaPersistence.findByGroupId(
-				groupId, start, end, orderByComparator);
+	@Override
+	public List<Tarefa> getTarefasyGroupId(long groupId, int start, int end, OrderByComparator<Tarefa> orderByComparator) {
+		return null;
 	}
+
+//	public List<Tarefa> getTarefasByKeywords(
+//			long groupId, String keywords, int start, int end,
+//			OrderByComparator<Tarefa> orderByComparator) {
+//
+//		return tarefaLocalService.dynamicQuery(
+//				getKeywordSearchDynamicQuery(groupId, keywords), start, end,
+//				orderByComparator);
+//	}
+//
+//	public long getTarefasCountByKeywords(long groupId, String keywords) {
+//		return tarefaLocalService.dynamicQueryCount(
+//				getKeywordSearchDynamicQuery(groupId, keywords));
+//	}
+//
+//	public List<Tarefa> getTarefasyGroupId(
+//			long groupId, int start, int end,
+//			OrderByComparator<Tarefa> orderByComparator) {
+//
+//		return tarefaPersistence.findByGroupId(
+//				groupId, start, end, orderByComparator);
+//	}
 
 	public Tarefa updateTarefa(
 			long tarefaId, String titulo, String descricao, Date dataFinal,
@@ -138,31 +147,26 @@ public class TarefaLocalServiceImpl extends TarefaLocalServiceBaseImpl {
 		return tarefa;
 	}
 
-	// Silenciando outros métodos
 
-	@Override
-	public Tarefa updateTarefa(Tarefa tarefa) {
-		throw new UnsupportedOperationException("Not supported.");
-	}
 
-	private DynamicQuery getKeywordSearchDynamicQuery(
-			long groupId, String keywords) {
-
-		DynamicQuery dynamicQuery = dynamicQuery().add(
-				RestrictionsFactoryUtil.eq("groupId", groupId));
-
-		if (Validator.isNotNull(keywords)) {
-			Disjunction disjunctionQuery =
-					RestrictionsFactoryUtil.disjunction();
-
-			disjunctionQuery.add(
-					RestrictionsFactoryUtil.like("titulo", "%" + keywords + "%"));
-			disjunctionQuery.add(
-					RestrictionsFactoryUtil.like(
-							"descricao", "%" + keywords + "%"));
-			dynamicQuery.add(disjunctionQuery);
-		}
-
-		return dynamicQuery;
-	}
+//	private DynamicQuery getKeywordSearchDynamicQuery(
+//			long groupId, String keywords) {
+//
+//		DynamicQuery dynamicQuery = dynamicQuery().add(
+//				RestrictionsFactoryUtil.eq("groupId", groupId));
+//
+//		if (Validator.isNotNull(keywords)) {
+//			Disjunction disjunctionQuery =
+//					RestrictionsFactoryUtil.disjunction();
+//
+//			disjunctionQuery.add(
+//					RestrictionsFactoryUtil.like("titulo", "%" + keywords + "%"));
+//			disjunctionQuery.add(
+//					RestrictionsFactoryUtil.like(
+//							"descricao", "%" + keywords + "%"));
+//			dynamicQuery.add(disjunctionQuery);
+//		}
+//
+//		return dynamicQuery;
+//	}
 }

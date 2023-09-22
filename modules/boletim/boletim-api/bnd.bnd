@@ -1,5 +1,5 @@
 Bundle-Name: boletim-api
-Bundle-SymbolicName: boletim.api
+Bundle-SymbolicName: com.liferay.treinamento.boletim.api
 Bundle-Version: 1.0.0
 Export-Package:\
 	com.liferay.treinamento.boletim.exception,\

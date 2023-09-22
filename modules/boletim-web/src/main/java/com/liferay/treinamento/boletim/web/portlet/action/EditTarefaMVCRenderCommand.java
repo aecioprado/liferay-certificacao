@@ -74,7 +74,7 @@ public class EditTarefaMVCRenderCommand implements MVCRenderCommand {
         renderRequest.setAttribute("tarefa", tarefa);
         renderRequest.setAttribute("tarefaClass", Tarefa.class);
 
-        return "/tarefa/edit_tarefa.jsp";
+        return "/tarefa/edit_tarefas.jsp";
     }
 
     @Reference
