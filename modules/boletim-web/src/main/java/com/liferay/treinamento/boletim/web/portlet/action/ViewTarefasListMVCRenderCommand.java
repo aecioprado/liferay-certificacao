@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.treinamento.boletim.model.Tarefa;
+import com.liferay.treinamento.boletim.service.TarefaLocalService;
 import com.liferay.treinamento.boletim.service.TarefaService;
 import com.liferay.treinamento.boletim.web.constants.BoletimPortletKeys;
 import com.liferay.treinamento.boletim.web.constants.MVCCommandNames;
@@ -34,11 +35,12 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + BoletimPortletKeys.BOLETIM,
+		"mvc.command.name=/",
 		"mvc.command.name=" + MVCCommandNames.VIEW_TAREFAS
 	},
 	service = MVCRenderCommand.class
 )
-public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
+public class ViewTarefasListMVCRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(
@@ -110,7 +112,7 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 		// search engine  to get localized sort options.
 
 		String orderByCol = ParamUtil.getString(
-			renderRequest, "orderByCol", "title");
+			renderRequest, "orderByCol", "tarefaId");
 		String orderByType = ParamUtil.getString(
 			renderRequest, "orderByType", "asc");
 
@@ -127,16 +129,18 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 
 		// Call the service to get the list of assignments.
 
+		List<Tarefa> todasTarefas = _tarefaLocalService.getTarefas(-1,-1);
+		renderRequest.setAttribute("todasTarefas", todasTarefas);
 		List<Tarefa> tarefas = _tarefaService.getTarefasByKeywords(
 			themeDisplay.getScopeGroupId(), keywords, start, end, comparator);
 
 		// Set request attributes.
 
 		renderRequest.setAttribute("tarefas", tarefas);
+
+		Long count = (long) _tarefaLocalService.getTarefasCount();//second way
 		renderRequest.setAttribute(
-			"tarefasCount",
-			_tarefaService.getTarefasCountByKeywords(
-				themeDisplay.getScopeGroupId(), keywords));
+			"tarefasCount",count);
 	}
 
 	@Reference
@@ -144,5 +148,8 @@ public class ViewTarefasMVCRenderCommand implements MVCRenderCommand {
 
 	@Reference
 	protected TarefaService _tarefaService;
+
+	@Reference
+	protected TarefaLocalService _tarefaLocalService;
 
 }

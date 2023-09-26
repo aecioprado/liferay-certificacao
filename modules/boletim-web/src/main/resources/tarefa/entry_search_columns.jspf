@@ -37,71 +37,13 @@
 
 			<h4>
 				<aui:a href="${viewTarefaURL}">
-					${entry.getTitle(locale)}
+					${entry.titulo}
 				</aui:a>
 			</h4>
 
 		</liferay-ui:search-container-column-text>
 
-		<%-- <liferay-ui:search-container-column-jsp path="/tarefa/entry_actions.jsp" /> --%>
-	</c:when>
-
-	<%-- Card view  --%>
-
-	<c:when
-		test='${tarefasManagementToolbarDisplayContext.getDisplayStyle().equals("icon")}'>
-
-		<%
-			row.setCssClass("lfr-asset-item");
-		%>
-
-		<liferay-ui:search-container-column-text>
-
-			<%-- Vertical card. --%>
-<clay:vertical-card>
-    <clay:vertical-card-header>
-        <clay:icon symbol="cards2" />
-    </clay:vertical-card-header>
-    <clay:vertical-card-sticker-bottom>
-        <clay:user-portrait userId="${entry.userId}" cssClass="sticker sticker-bottom" />
-    </clay:vertical-card-sticker-bottom>
-    <clay:vertical-card-title>${entry.getTitle(locale)}</clay:vertical-card-title>
-    <clay:vertical-card-description>
-        <%=HtmlUtil.stripHtml(entry.getDescription()) %>
-    </clay:vertical-card-description>
-    <clay:vertical-card-footer>
-        <a href="${viewTarefaURL}" class="btn btn-secondary">
-            <%=LanguageUtil.get(request, "view-details") %>
-        </a>
-    </clay:vertical-card-footer>
-</clay:vertical-card>
-
-		</liferay-ui:search-container-column-text>
-	</c:when>
-
-	<%-- Table view --%>
-
-	<c:otherwise>
-
-		<liferay-ui:search-container-column-text
-			href="${viewTarefaURL}"
-			name="title"
-			value="<%= entry.getTitle(locale) %>"
-		/>
-
-		<liferay-ui:search-container-column-user
-			name="author"
-			userId="${entry.userId}"
-		/>
-
-		<liferay-ui:search-container-column-date
-			name="create-date"
-			property="createDate"
-		/>
-
 		<liferay-ui:search-container-column-jsp
-			name="actions"
-			path="/tarefa/entry_actions.jsp"
-		/>
-	</c:otherwise>
+			path="/tarefa/entry_actions.jsp" />
+	</c:when>
 </c:choose>
