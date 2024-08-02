@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Teste React Form Multi Step",
   "dependencies": {
-    "@liferay/dxp-7.4": "*"
+    "@liferay/dxp-7.4": "*",
+    "axios": "^1.7.2"
   },
   "portlet": {
     "com.liferay.portlet.display-category": "category.sample",

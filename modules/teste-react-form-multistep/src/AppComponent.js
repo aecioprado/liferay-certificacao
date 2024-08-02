@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ClayMultiStepNav from '@clayui/multi-step-nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ClayButton from '@clayui/button';
 import TipoSolicitacao from './components/forms/TipoSolicitacao';
 import IdentificacaoInstituicao from './components/forms/IdentificacaoInstituicao';
@@ -14,8 +14,38 @@ import useFormStep from './hooks/useFormStep';
 
 export default function AppComponent(props) {
 
+  const formData = {
+    "isPlantaoJudiciario": null,
+    "CRAAI": "",
+    "PromotoriaJustica": "",
+    "isAdolescenteApreendido": null,
+    "dataOitiva": "",
+    "nomeAdvogado": "",
+    "numeroOABMatricula": "",
+    "nomeResponsavelAdolescente": ""
+  }
+
+  const [data, setData] = useState(formData);
+
+  const handleFieldUpdate = (key, value) => {
+    console.log("data", key, value)
+    setData((prevState) => {
+      const updatedData = { ...prevState, [key]: value };
+      console.log("dataUpdated inside setState", updatedData);
+      return updatedData;
+    });
+  }
+
+  useEffect(() => {
+    console.log("State updated:", data);
+  }, [data]);
+
   /* steps */
-  const stepsComponents = [<TipoSolicitacao />, <IdentificacaoSolicitante />, <IdentificacaoInstituicao />, <ContatoInstituicao />]
+  const stepsComponents = [
+    <TipoSolicitacao data={data} handleFieldUpdate={handleFieldUpdate} />,
+    <IdentificacaoSolicitante data={data} handleFieldUpdate={handleFieldUpdate} />,
+    <IdentificacaoInstituicao data={data} handleFieldUpdate={handleFieldUpdate} />,
+    <ContatoInstituicao data={data} handleFieldUpdate={handleFieldUpdate} />]
 
   const { currentStep, currentComponent, handleStepUpdate: changeStep, isFirtStep, isLastStep } = useFormStep(stepsComponents);
 
@@ -79,12 +109,12 @@ export default function AppComponent(props) {
 
         <div className="btn-row">
           {!isFirtStep && (
-            <ClayButton className="mr-2" displayType="primary" onClick={() => { changeStep(currentStep - 1) }}>
+            <ClayButton className="mr-2 mt-4" displayType="primary" onClick={() => { changeStep(currentStep - 1) }}>
               Voltar
             </ClayButton>
           )}
 
-          <ClayButton displayType="primary" type="submit">
+          <ClayButton displayType="primary" type="submit" className="mt-4">
             {isLastStep ? 'Enviar' : 'Avançar'}
           </ClayButton>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IdentificacaoSolicitante = () => {
+const IdentificacaoSolicitante = ({ data, handleFieldUpdate }) => {
   return (
     <div>
       <h2>Identificação do Solicitante</h2>

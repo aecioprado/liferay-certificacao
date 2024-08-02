@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ContatoInstituicao = () => {
+const ContatoInstituicao = ({ data, handleFieldUpdate }) => {
   return (
     <div>
       <h2>Contato da Instituição</h2>
